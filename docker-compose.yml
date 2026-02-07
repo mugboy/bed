@@ -1,0 +1,29 @@
+version: '3.7'
+services: 
+    app:
+        container_name: app
+        build: 
+            context: ./
+            dockerfile: Dockerfile
+        restart: always
+        ports: 
+            - "8000:8000"
+    api:
+        container_name: api
+        build: 
+            context: ./
+            dockerfile: Dockerfile.api
+        restart: always
+        ports: 
+            - "8081:8081"            
+    # nginx:
+    #     depends_on: 
+    #         - docker-fastapi
+    #     container_name: proxy-app
+    #     build: 
+    #         context: ./
+    #         dockerfile: Dockerfile
+    #     ports: 
+    #         - "80:80"
+    #     restart: always
+        

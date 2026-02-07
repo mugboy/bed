@@ -1,0 +1,21 @@
+
+# From https://github.com/tiangolo/uvicorn-gunicorn-fastapi-docker/blob/master/docker-images/python3.11-slim.dockerfile
+
+FROM python:3.11-alpine
+
+#LABEL maintainer="Sebastian Ramirez <tiangolo@gmail.com>"
+
+# RUN apt-get update && apt-get install -y --no-install-recommends \
+#     python3.11 \
+#     python3.11-venv \
+#     python3.11-dev \
+#     build-essential \
+#     && rm -rf /var/lib/apt/lists/*
+
+COPY ./src /app
+
+RUN pip install --no-cache-dir -r /app/requirements.txt
+
+WORKDIR /app
+
+ENTRYPOINT ./run.sh
