@@ -1,8 +1,11 @@
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
-from db import DB
+from backend.db import DB
+from pathlib import Path
 
 app = FastAPI()
+
+HERE = Path(__file__).parent
 
 def minify_html(html: str) -> str:
     import re
@@ -16,6 +19,7 @@ def minify_html(html: str) -> str:
 @app.get("/", response_class=HTMLResponse)
 async def root():
     db = DB()
-    with open("../frontend/index.html", "r") as f:
+
+    with HERE.joinpath("../frontend/index.html").open() as f:
         html = "".join(f.readlines())
     return f"{html}{db.get_messages()}"
